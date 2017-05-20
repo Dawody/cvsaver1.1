@@ -56,7 +56,7 @@
 
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input type="Name" class="form-control" id="exampleInputEmail1" name="phone" placeholder="Enter your phone" required="please enter phone">
+                    <input type="number" class="form-control" id="exampleInputEmail1" name="phone" placeholder="Enter your phone" required="please enter phone">
                 </div>
 
                 <div class="form-group">
@@ -308,7 +308,7 @@
 
                    @for( $i=1900;$i<2040;$i++)
                    {
-                       <option value='$i'> {{$i}} </option>
+                       <option value={{$i}}> {{$i}} </option>
                    }
                   @endfor
 

@@ -6,6 +6,7 @@ use App\Job;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Array_;
 
 class JobController extends Controller
 {
@@ -16,8 +17,13 @@ class JobController extends Controller
     public function addjob(Request $request){
         if($request->isMethod('post')){
 
-            if(Job::where('name',$request->input('name'))->first() !=NULL)
-                echo "error";
+            if(Job::where('name',$request->input('name'))->first() !=NULL) {
+
+                $err_msg = "this Job is already existed\n You need to deactivate it first to add it again !";
+                $arr=Array('msg'=>$err_msg);
+                return view('/Hrfun/error',$arr);
+            }
+
 
 
 
@@ -26,6 +32,8 @@ class JobController extends Controller
             $job->name=$request->input('name');
             $job->description=nl2br($request->input('description'));
             $mytime = Carbon::now();
+            $job->start=$request->input('start_graduation_year');
+            $job->end=$request->input('end_graduation_year');
             $job->announcement_date=$mytime->toDateString();
             $job->active=true;
             $job->save();
@@ -114,7 +122,9 @@ class JobController extends Controller
             ->where('id',$job_id)
             ->update([
                'description'=>$request->input('jdescription_edit'),
-                'active'=>$act
+                'active'=>$act,
+                'start'=>$request->input('edit_start_graduation_year'),
+                'end'=>$request->input('edit_end_graduation_year')
             ]);
 
 

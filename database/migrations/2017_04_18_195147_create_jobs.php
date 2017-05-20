@@ -17,6 +17,8 @@ class CreateJobs extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->integer('start');
+            $table->integer('end');
             $table->date('announcement_date');
             $table->boolean('active');
             $table->timestamps();

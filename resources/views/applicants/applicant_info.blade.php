@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <td>nationality</td>
-                    <td>{{$applicant->natio}}</td>
+                    <td>{{$applicant->nation}}</td>
                 </tr>
                 <tr>
                     <td>birth date</td>

@@ -67,41 +67,52 @@ Repeated Applicants
                 </tfoot>
                 <tbody>
                 @foreach($data as $row)
+                    @for($i=0 ; $i<sizeof($row) ;$i++)
 
                 <tr>
-                    <td>{{$row->first}} {{$row->last}}</td>
-                    <td>{{$row->name}}</td>
+                    <td>{{$row[$i]->first}} {{$row[$i]->last}}</td>
+                    <td>{{$row[$i]->name}}</td>
 
 
-                    <form action="/ui/appform" method="POST">
+                    <form action="/applicant_info" method="POST">
+                        {{csrf_field()}}
 
                     <td>
                         <button type="submit" name="details" class="btn btn-default">Click to view details</button>
+                        <input type="hidden" name="app_id" value={{$row[$i]->id}}>
 
                     </td>
 
                     </form>
 
 
-                    <form action="alert" method="POST">
+                    <form action="/delete_applicant_from_alert" method="POST">
+                        {{csrf_field()}}
 
                     <td>
 
-<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#delete{{$row->id}}">Click here to Delete Applicant</button>
-<div id="delete{{$row->id}}" class="collapse">
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#delete{{$row[$i]->id}}">Click here to Delete Applicant</button>
+<div id="delete{{$row[$i]->id}}" class="collapse">
+
 
 
   <div class="ui1">
 
 <p> Are you sure you Want do delete this applicant?</p>
     <button type="submit" name="Delete" class="btn btn-default">YES</button>
-    <br> 
+      <input type="hidden" name="app_id" value={{$row[$i]->id}}>
+      <input type="hidden" name="applicant_id" value={{$row[$i]->id}}>
+
+
+
+      <br>
 
   </div>
   </div>
  </td>
                     </form>
                 </tr>
+                @endfor
          @endforeach
 
                 </tbody>

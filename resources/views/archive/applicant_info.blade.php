@@ -33,7 +33,7 @@
                 <tbody>
                 <tr>
                     <td>name</td>
-                    <td>{{$applicant->first_name}} {{$applicant->first_name}}</td>
+                    <td>{{$applicant->first}} {{$applicant->last}}</td>
                 </tr>
                 <tr>
                     <td>gender</td>
@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <td>nationality</td>
-                    <td>{{$applicant->nationality}}</td>
+                    <td>{{$applicant->nation}}</td>
                 </tr>
                 <tr>
                     <td>birth date</td>

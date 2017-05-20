@@ -53,7 +53,7 @@ Applicants's Offers
                 <tr>
                     <th>Applicant name</th>
                     <th>Job</th>
-                    <th>View details</th>
+                    {{--<th>View details</th>--}}
         <th> send offers</th>
                 </tr>
                 </thead>

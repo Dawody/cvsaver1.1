@@ -71,7 +71,34 @@ Jobs Options
 {{----}}
                    {{--<br><br>--}}
 
-    <button type="submit" name="job_submit" class="btn btn-default">Click here to ADD job</button>
+      <label class="label1" for="start_graduation">Start_Graduation_Year</label>
+      <select name="start_graduation_year" required="please enter graduation_year">
+          <option value="" selected>choose year</option>
+
+
+          @for( $i=1990;$i<2040;$i++)
+              {
+              <option value={{$i}}> {{$i}} </option>
+              }
+          @endfor
+
+      </select>
+      <br> <br>
+      <label class="label1" for="end_graduation">End_Graduation_Year</label>
+      <select name="end_graduation_year" required="please enter graduation_year">
+          <option value="" selected>choose year</option>
+
+
+          @for( $i=1990;$i<2040;$i++)
+              {
+              <option value={{$i}}> {{$i}} </option>
+              }
+          @endfor
+
+      </select>
+      <br> <br>
+
+      <button type="submit" name="job_submit" class="btn btn-default">Click here to ADD job</button>
     <br>
 
   </div>

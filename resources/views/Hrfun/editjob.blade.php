@@ -67,6 +67,32 @@ Edit Job
             echo $text;
             ?>
     </textarea>
+<br>
+          <label class="label1" for="edit_start_graduation">Edit_Start_Graduation_Year</label>
+          <select name="edit_start_graduation_year" required="please enter graduation_year">
+              <option value="" selected>{{$job->start}} </option>
+
+
+              @for( $i=1990;$i<2040;$i++)
+                  {
+                  <option value={{$i}}> {{$i}} </option>
+                  }
+              @endfor
+
+          </select>
+          <br> <br>
+          <label class="label1" for="edit_end_graduation">Edit_End_Graduation_Year</label>
+          <select name="edit_end_graduation_year" required="please enter graduation_year">
+              <option value="" selected> {{$job->end}} </option>
+
+
+              @for( $i=1990;$i<2040;$i++)
+                  {
+                  <option value={{$i}}> {{$i}} </option>
+                  }
+              @endfor
+
+          </select>
           @endforeach
 
       </div>

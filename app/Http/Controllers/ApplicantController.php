@@ -22,7 +22,23 @@ class ApplicantController extends Controller
 
         $applicants=Applicant::where('id',$request->input('applicant_id'));
         $applicants->delete();
+
+
+
     }
+
+    public function delete_applicant_apply_eval(Request $request){
+        $app_id = $request->input('app_id');
+        ApplayController::delete($app_id);
+        EvaluationController::delete($request);
+
+        self::delete($request);
+        return self::alert();
+
+
+    }
+
+
     //get all the applicants data
     public function getall()
     {
@@ -50,10 +66,13 @@ class ApplicantController extends Controller
         $applicant=Applicant::where('id',$request->input('applicant_id'))->get()->first();
         return $applicant;
     }
+
     public function getapplicant(Request $request){
         $applicant=Applicant::where('id',$request->input('app_id'))->get()->first();
+       echo "HELLO";
         return view('applicants.applicant_info',compact('applicant'));
     }
+
     //get an applicant by his id (post)
     public static function get_id(Request $request){
 
@@ -96,7 +115,7 @@ class ApplicantController extends Controller
         $app->faculty=$request->input('faculty');
         $app->department=$request->input('department');
         $app->gpa=$request->input('gpa');
-        $app->graduation_year=9;//$request->input('graduation_year');
+        $app->graduation_year=$request->input('graduation_year');
         $uniqueFileName ='new.pdf';
         $app->cv=$uniqueFileName;
         $app->save();
@@ -124,7 +143,7 @@ class ApplicantController extends Controller
 
 
         //thanks
-        return view('/application/thanks');
+        return view('/ui/thank');
     }
     public function alert(){
 
@@ -141,19 +160,52 @@ class ApplicantController extends Controller
 ////___________________________________-------------------------__________________________-----------
 
 
-        $tab = DB::table('applicants')
 
-            ->join('applays' , 'applays.app_id' ,'=','applicants.id')
-            ->join('jobs' ,'jobs.id' ,'=','applays.job_id')
-
-            ->select('first','last','name','applicants.id','phone')
-            //->select(DB::raw('count(email) as c , phone'))
-            ->groupBy('phone')
+        $rep = DB::table('applicants')
+            ->select(DB::raw('count(*) as app_count ,email'))
+            ->groupby('email')
             ->get();
 
-        $arr=array('data'=>$tab);
 
+
+        $tab=collect();
+        foreach ($rep as $r)
+        {
+//            echo $tab;
+            if($r->app_count >1) {
+                $mail = $r->email;
+
+                $tab->push(DB::table('applicants')
+                    ->join('applays', 'applays.app_id', '=', 'applicants.id')
+                    ->join('jobs', 'jobs.id', '=', 'applays.job_id')
+                    ->select('first', 'last', 'name', 'applicants.id')
+                    ->where('email','=',$mail)
+                    ->get());
+            }
+
+        }
+//
+//        $tab =DB::table('applicants')
+//            ->join('applays', 'applays.app_id', '=', 'applicants.id')
+//            ->join('jobs', 'jobs.id', '=', 'applays.job_id')
+//            ->select('first', 'last', 'name', 'applicants.id')
+//            ->where('email','=',$mail)
+//            ->get();
+
+
+
+
+
+
+//            echo $tab;
+
+
+
+
+
+        $arr=array('data'=>$tab);
         return view('/Hrfun/alert',$arr);
+
     }
     public function newapplication(){
         $jobs = Job::all();
