@@ -1,0 +1,22 @@
+/viewapp
+
+get --> all the applicants (variable : $applicant).
+post --> i will send you the id of one applicant, cv notes and cv result redirect to the same page again
+
+/cv
+
+get --> all the applicants accepted in the cv (variable : $applicant).
+post --> i will send you the id of one applicant and exam results redirect to the same page again.
+
+/exam
+
+get --> all the applicants succeded in the exam (variable : $applicant).
+post --> i will send you the id of one applicant, interview notes and interview result. redirect to the same page again.
+
+/viewarch
+
+get --> all the applicants in the archive (variable : $archive).
+post --> i will send you the id of one applicant to return it to the applicant and evaluation table.
+i want the cv-result as accepted or rejected.
+i want the exam-result as passed or failed.
+i want the interview-result as accepted or rejected.
